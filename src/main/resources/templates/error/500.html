@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+    <header th:replace="~{fragments :: header}"></header>
+
+    <main class="container mt-4">
+        <!-- Error Icon -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <div class="error-icon mb-4">
+                    <i class="bi bi-exclamation-triangle-fill display-1 text-danger"></i>
+                </div>
+                <h1 class="display-1 fw-bold text-danger">500 - Server Error</h1>
+                <p class="lead text-muted">Oops! Something went wrong on our end.</p>
+            </div>
+        </div>
+
+        <!-- Error Details Card -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h3 class="card-title text-danger mb-3">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Server Error Details
+                        </h3>
+
+                        <!-- Error Information -->
+                        <div th:if="${error}" class="alert alert-danger mb-3">
+                            <h6 class="alert-heading">
+                                <i class="bi bi-info-circle me-2"></i>
+                                Error Information
+                            </h6>
+                            <div class="row mb-2">
+                                <div class="col-md-6 mb-2">
+                                    <strong>Error:</strong> 
+                                    <span th:text="${error.message}">Error message will appear here</span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <strong>Status:</strong> 
+                                    <span class="badge bg-danger" th:text="${error.status}">500</span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 mb-2">
+                                    <strong>Time:</strong> 
+                                    <span th:text="${#temporals.format(error.timestamp, 'yyyy-MM-dd HH:mm:ss')}">Error time</span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <strong>Exception:</strong> 
+                                    <span th:text="${error.exception}">Exception details will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- What to Do -->
+                        <div class="text-center mb-4">
+                            <h6 class="text-muted mb-3">What You Can Do</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="suggestion-card text-center">
+                                        <i class="bi bi-house-door display-4 text-primary mb-2"></i>
+                                        <h6>Go Home</h6>
+                                        <p class="small text-muted">Return to the main page</p>
+                                        <a th:href="@{/}" class="btn btn-primary">Home</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="suggestion-card text-center">
+                                        <i class="bi bi-arrow-clockwise display-4 text-info mb-2"></i>
+                                        <h6>Try Again</h6>
+                                        <p class="small text-muted">Go back and retry your action</p>
+                                        <a th:href="javascript:history.back()" class="btn btn-outline-secondary">Back</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="suggestion-card text-center">
+                                        <i class="bi bi-book display-4 text-success mb-2"></i>
+                                        <h6>Browse Books</h6>
+                                        <p class="small text-muted">Continue exploring our collection</p>
+                                        <a th:href="@{/public/book}" class="btn btn-success">Books</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Report Issue -->
+                        <div class="text-center mt-4">
+                            <h6 class="text-muted mb-2">
+                                <i class="bi bi-bug me-2"></i>
+                                Still Having Issues?
+                            </h6>
+                            <p class="small text-muted">
+                                If this problem persists, please contact our support team
+                            </p>
+                            <a th:href="@{/public/contact}" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-envelope me-2"></i>Contact Support
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Illustration -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <div class="error-illustration">
+                    <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center" 
+                         style="width: 150px; height: 150px;">
+                        <i class="bi bi-bug-fill display-4 text-muted"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Book-Advisor</h5>
+                    <p>Your trusted companion for discovering great books</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2026 Book-Advisor. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Styles -->
+    <style>
+        .error-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .suggestion-card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .suggestion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .error-illustration {
+            opacity: 0.3;
+            margin-top: 2rem;
+        }
+    </style>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</body>
+
+</html>

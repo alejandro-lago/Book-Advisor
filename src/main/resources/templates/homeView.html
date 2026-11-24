@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+    <header th:replace="~{fragments :: header}"></header>
+
+    <main class="container mt-4">
+        <!-- Hero Section -->
+        <section class="hero-section text-center mb-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="display-4 fw-bold text-primary mb-4">Welcome to Book-Advisor</h1>
+                    <p class="lead mb-4">Discover your next favorite book from our curated collection</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a th:href="@{/public/book}" class="btn btn-primary btn-lg px-4 me-md-2">Browse Books</a>
+                        <a th:href="@{/public/signup}" class="btn btn-outline-secondary btn-lg px-4">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section mb-5">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="bi bi-book display-4 text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Extensive Library</h5>
+                            <p class="card-text">Browse through thousands of books across multiple genres</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="bi bi-star display-4 text-warning"></i>
+                            </div>
+                            <h5 class="card-title">User Reviews</h5>
+                            <p class="card-text">Read and write reviews to help others discover great books</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="bi bi-person display-4 text-success"></i>
+                            </div>
+                            <h5 class="card-title">Personalized Experience</h5>
+                            <p class="card-text">Create your profile and track your reading journey</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section text-center py-5 bg-light rounded">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="mb-3">Ready to Start Your Reading Journey?</h2>
+                    <p class="lead mb-4">Join our community of book lovers today</p>
+                    <a th:href="@{/public/signup}" class="btn btn-success btn-lg">Get Started Now</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Book-Advisor</h5>
+                    <p>Your trusted companion for discovering great books</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2026 Book-Advisor. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</body>
+
+</html>

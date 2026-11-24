@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+    <header th:replace="~{fragments :: header}"></header>
+
+    <main class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <!-- Page Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h1 class="display-5 fw-bold text-primary">Edit Book</h1>
+                        <p class="lead">Update the book information for our community</p>
+                    </div>
+                </div>
+
+                <!-- Edit Book Form -->
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <!-- Current Book Display -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="alert alert-info d-flex align-items-center">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    <div>
+                                        <strong>Editing:</strong>
+                                        <span th:text="*{title}">Book Title</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form th:action="@{/book/edit/submit}" th:object="${formEditBook}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" th:field="*{id}">
+
+                            <!-- Book Information Section -->
+                            <div class="row mb-4">
+                                <div class="col-md-8">
+                                    <h5 class="card-subtitle mb-3">
+                                        <i class="bi bi-pencil me-2"></i>Book Information
+                                    </h5>
+                                    
+                                    <!-- Current Cover Display -->
+                                    <div class="mb-3 text-center">
+                                        <label class="form-label">Current Cover</label>
+                                        <div class="current-cover d-inline-block position-relative">
+                                            <img th:if="*{front} != null" 
+                                                 th:src="@{*{front}}" 
+                                                 class="img-thumbnail rounded shadow-sm"
+                                                 style="max-height: 150px; object-fit: cover;"
+                                                 alt="Current book cover">
+                                            <div th:unless="*{front} != null" 
+                                                 class="bg-secondary d-inline-flex align-items-center justify-content-center text-white rounded"
+                                                 style="width: 150px; height: 150px;">
+                                                <i class="bi bi-book display-4"></i>
+                                            </div>
+                                            <span class="badge bg-primary position-absolute top-0 end-0 m-1">Current</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Title Field -->
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Title *</label>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               th:field="*{title}" 
+                                               placeholder="Enter the book title"
+                                               required>
+                                    </div>
+
+                                    <!-- Author Field -->
+                                    <div class="mb-3">
+                                        <label for="author" class="form-label">Author *</label>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               th:field="*{author}" 
+                                               placeholder="Enter the author name"
+                                               required>
+                                    </div>
+
+                                    <!-- Publication Year -->
+                                    <div class="mb-3">
+                                        <label for="year" class="form-label">Publication Year</label>
+                                        <input type="number" 
+                                               class="form-control" 
+                                               th:field="*{year}" 
+                                               placeholder="e.g., 2023"
+                                               min="1000"
+                                               max="2100">
+                                    </div>
+
+                                    <!-- Synopsis -->
+                                    <div class="mb-3">
+                                        <label for="synopsis" class="form-label">Synopsis</label>
+                                        <textarea class="form-control" 
+                                                  th:field="*{synopsis}" 
+                                                  rows="4" 
+                                                  placeholder="Write a brief summary of the book..."></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Book Details Section -->
+                                <div class="col-md-4">
+                                    <h5 class="card-subtitle mb-3">
+                                        <i class="bi bi-gear me-2"></i>Book Settings
+                                    </h5>
+
+                                    <!-- New Cover Upload -->
+                                    <div class="mb-3">
+                                        <label for="imageFile" class="form-label">New Cover Image</label>
+                                        <div class="input-group">
+                                            <input type="file" 
+                                                   class="form-control" 
+                                                   th:field="*{imageFile}" 
+                                                   accept="image/*"
+                                                   id="newImageUpload">
+                                            <label class="input-group-text" for="newImageUpload">
+                                                <i class="bi bi-image"></i>
+                                            </label>
+                                        </div>
+                                        <small class="text-muted">Leave empty to keep current cover</small>
+                                    </div>
+
+                                    <!-- Language Selection -->
+                                    <div class="mb-3">
+                                        <label for="language" class="form-label">Language *</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-translate"></i>
+                                            </span>
+                                            <select class="form-select" th:field="*{language}" required>
+                                                <option value="">Select language...</option>
+                                                <option th:each="language : ${languageList}" 
+                                                        th:value="${language}" 
+                                                        th:selected="${language} == *{language}"
+                                                        th:text="${language}">Language</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Genre Selection -->
+                                    <div class="mb-3">
+                                        <label for="genreId" class="form-label">Genre *</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-tag"></i>
+                                            </span>
+                                            <select class="form-select" th:field="*{genreId}" required>
+                                                <option value="">Select genre...</option>
+                                                <option th:each="genre : ${genreList}" 
+                                                        th:value="${genre.id}" 
+                                                        th:selected="${genre.id} == *{genreId}"
+                                                        th:text="${genre.name}">Genre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between gap-2">
+                                        <a th:href="@{/book}" class="btn btn-outline-secondary btn-lg">
+                                            <i class="bi bi-x-circle me-2"></i>Cancel
+                                        </a>
+                                        <div class="btn-group">
+                                            <button type="reset" class="btn btn-outline-warning btn-lg">
+                                                <i class="bi bi-arrow-clockwise me-2"></i>Reset Changes
+                                            </button>
+                                            <button type="submit" class="btn btn-primary btn-lg">
+                                                <i class="bi bi-check-circle me-2"></i>Update Book
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Last Modified Info -->
+                <div class="card border-0 bg-light mt-4">
+                    <div class="card-body p-3">
+                        <h6 class="card-title fw-bold mb-2">
+                            <i class="bi bi-clock me-2"></i>Edit Tips
+                        </h6>
+                        <ul class="list-unstyled mb-0 small">
+                            <li class="mb-1">• Review changes before saving to ensure accuracy</li>
+                            <li class="mb-1">• Upload a new cover to update the book's appearance</li>
+                            <li>• All fields marked with * are required</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image Preview Script -->
+    <script>
+        document.getElementById('newImageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // You could show a preview here if needed
+                    console.log('New image selected:', file.name);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+    <header th:replace="~{fragments :: header}"></header>
+        <h1>Book Details</h1>
+        <img th:if="${bookDetails.front != null}" th:src="@{${bookDetails.front}}" width="400">
+        <table>
+            <tr>
+                <td>ID</td>
+                <td th:text="${bookDetails.id}"></td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td th:text="${bookDetails.title}"></td>
+            </tr>
+            <tr>
+                <td>Year</td>
+                <td th:text="${bookDetails.year}"></td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td th:text="${bookDetails.author}"></td>
+            </tr>
+            <tr>
+                <td>Synopsis</td>
+                <td th:text="${bookDetails.synopsis}"></td>
+            </tr>
+            <tr>
+                <td>Language</td>
+                <td th:text="${bookDetails.language}"></td>
+            </tr>
+            <tr>
+                <td>Registration Date</td>
+                <td th:text="${bookDetails.registration_date}"></td>
+            </tr>
+            <tr>
+                <td>Votes</td>
+                <td th:text="${bookDetails.votes}"></td>
+            </tr>
+            <tr>
+                <td>Sum Points</td>
+                <td th:text="${bookDetails.pointsRound}"></td>
+            </tr>
+            <tr>
+                <td>Points</td>
+                <td th:text="${bookDetails.points}"></td>
+            </tr>
+            <tr>
+                <td>Genre</td>
+                <td th:text="${bookDetails.genre}"></td>
+            </tr>
+        </table>
+        <a th:href="@{/book/edit/{id}(id = ${bookDetails.id})}">Edit</a>
+        <a th:href="@{/book/delete/{id}(id = ${bookDetails.id})}">Delete</a>
+        <a th:href="@{/book/vote/{id}(id = ${bookDetails.id})}">Valorate</a>
+    </body>
+</html>
